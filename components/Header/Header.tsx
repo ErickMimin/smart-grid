@@ -9,7 +9,17 @@ const style = StyleSheet.create({
     container:{
         flex: 1,
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        alignItems: 'flex-end'
+    }, pressable:{
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        borderBottomColor: Colors.secondary,
+        paddingBottom: 10,
+        minWidth: 28
+    }, active:{
+        borderBottomWidth: 2
     }
   });
 
@@ -33,11 +43,13 @@ const Header: React.FC = (props) =>{
             }].map((element, index) => (
                 <Pressable
                 onPress={() => navigation.navigate(element.name)}
-                key={index}>
+                key={index}
+                style={[style.pressable, element.name === props.children ? style.active : null]}>
                     <FontAwesomeIcon 
                     size={26}
                     color={element.name === props.children ? Colors.secondary : Colors.white}
-                    icon={element.icon}/>
+                    icon={element.icon}
+                    />
                 </Pressable>
             ))}
         </View>

@@ -1,14 +1,15 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import Login from './components/Login';
+import Login from './components/Login/Login';
 import Header from './components/Header/Header';
 import Dashboard from './components/Dashboard/Dashboard';
 import Notifications from './components/Notifications/Notifications';
-import Settings from './components/Settings';
+import Settings from './components/Settings/Settings';
 import Charts from './components/Charts/Charts';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Provider } from 'react-redux';
+import { useFonts, Roboto_400Regular } from '@expo-google-fonts/roboto';
 
 import Colors from './constants/Colors';
 
@@ -18,6 +19,10 @@ const store = configureStore();
 const Stack = createStackNavigator();
 
 export default function App() {
+  useFonts({
+    Roboto_400Regular,
+  });
+
   return (
     <Provider store={store}>
       <NavigationContainer>
@@ -27,6 +32,9 @@ export default function App() {
         headerTitle: props => <Header {...props}/>,
         headerStyle: {
           backgroundColor: Colors.primary
+        },
+        headerTitleContainerStyle:{
+          height: '100%'
         },
         animationEnabled: false,
         cardStyle: {

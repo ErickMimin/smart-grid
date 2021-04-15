@@ -48,7 +48,7 @@ const Login: React.FC<{navigation:any}> = ({navigation}) => {
         <View 
         style={style.container}>
             <Image
-            source={require('../assets/img/bigLogo.png')}
+            source={require('../../assets/img/bigLogo.png')}
             style={style.logo}/>
             <Text>
                 Introduce el código
@@ -57,6 +57,7 @@ const Login: React.FC<{navigation:any}> = ({navigation}) => {
             placeholder='Código'
             style={style.input}
             value={code}
+            textContentType={'password'}
             onChangeText={handlerCode}/>
             {/*<Image
             source={require('../assets/img/tinyLogo.png')}

@@ -1,10 +1,19 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { VictoryPie } from 'victory-native';
+import Swipe from '../../constants/Swipe';
 
-const Charts: React.FC<{}> = () => {
+const Charts: React.FC<any> = ({navigation}) => {
+    const panResponder = Swipe({
+        swipeLeft: () => {
+            navigation.navigate('Home');
+        },
+        swipeRight: () => {
+            navigation.navigate('Notifications');
+        }
+    });
     return(
-        <View>
+        <View {...panResponder}>
             <VictoryPie
             data={[
                 { x: "Diciembre", y: 35 },

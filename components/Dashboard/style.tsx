@@ -1,8 +1,13 @@
 import {StyleSheet, Dimensions, StatusBar} from 'react-native';
 import Colors from '../../constants/Colors';
-const width = Dimensions.get('window').width / 3.5;
+const width = Dimensions.get('window').width * .28;
 
 export default StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center"
+    },
     data:{
         flexDirection: 'row',
         justifyContent: 'space-around'
@@ -10,9 +15,14 @@ export default StyleSheet.create({
     spec:{
         backgroundColor: Colors.green,
         borderRadius: 10,
-        padding: 5,
+        paddingHorizontal: 5,
+        paddingVertical: 10,
         width: width,
-        textAlign: 'center'
+        textAlign: 'center',
+        fontFamily: 'Roboto'
+    },
+    number:{
+        fontSize: 20
     },
     reportsContainer:{
         flexDirection: 'row',
@@ -29,6 +39,7 @@ export default StyleSheet.create({
     },
     reportsTitle:{
         textAlign: 'center',
-        padding: 10
+        padding: 10,
+        fontFamily: 'Roboto'
     }
 });

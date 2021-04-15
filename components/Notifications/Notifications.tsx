@@ -1,8 +1,9 @@
 import React from 'react';
 import { SafeAreaView, View, Text, SectionList} from 'react-native';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import styles from './styles';
 import { faExclamationCircle, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
+import styles from './styles';
+import Swipe from '../../constants/Swipe';
+import Notification from './Notification';
 
 const DATA = [
   {
@@ -33,35 +34,27 @@ const DATA = [
   }
 ];
 
-const Item: React.FC<{item: any}> = ({item}) => {
-  const {icon, title, date} = item;
-  return (
-    <View style={styles.item}>
-      <FontAwesomeIcon 
-      size={50}
-      icon={icon}
-      style={icon === faExclamationTriangle ? {color: '#eed202'} : {color: '#f32013'}}/>
-      <View style={{marginLeft: 10}}>
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.title}>{date}</Text>
-      </View>
-    </View>
+const Notifications: React.FC<any> = ({navigation}) => {
+  const panResponder = Swipe({
+      swipeLeft: () => {
+          navigation.navigate('Charts');
+      },
+      swipeRight: () => {
+          navigation.navigate('Settings');
+      }
+  });
+  return(
+      <SafeAreaView style={styles.container} {...panResponder}>
+          <SectionList
+              sections={DATA}
+              renderItem={({ item }) => <Notification item={item}/>}
+              keyExtractor={(item, index) => item.title + index}
+              renderSectionHeader={({ section: { title } }) => (
+                <Text style={{padding: 10}} >{title}</Text>
+              )}
+          />
+      </SafeAreaView>
   );
 };
 
-const Dashboard: React.FC<{}> = () => {
-    return(
-        <SafeAreaView style={styles.container}>
-            <SectionList
-                sections={DATA}
-                renderItem={({ item }) => <Item item={item}/>}
-                keyExtractor={(item, index) => item.title + index}
-                renderSectionHeader={({ section: { title } }) => (
-                  <Text style={{padding: 10}} >{title}</Text>
-                )}
-            />
-        </SafeAreaView>
-    );
-};
-
-export default Dashboard;
+export default Notifications;

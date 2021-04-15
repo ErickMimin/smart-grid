@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { View } from "react-native";
 import { VictoryAxis, VictoryCandlestick, VictoryChart, VictoryTheme, VictoryZoomContainer } from "victory-native";
-import Colors from "../../constants/Colors";
+import Colors from "../../../constants/Colors";
 import {useState} from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { dashboardAction } from "../../redux/actions/dashboard";
-import { dashboardProduction } from "../../redux/selectors";
+import { dashboardAction } from "../../../redux/actions/dashboard";
+import { dashboardProduction } from "../../../redux/selectors";
 
 
 const RealChart: React.FC<any> = ({data = [], candleWidth}: {data: Array<any>, candleWidth:number}) => {
@@ -66,7 +66,7 @@ const RealChart: React.FC<any> = ({data = [], candleWidth}: {data: Array<any>, c
     return(
         <View>
             <VictoryChart
-            theme={VictoryTheme.material}
+            theme={VictoryTheme.material} 
             domainPadding={{ x: 10 }}
             scale={{ x: "time" }}
             containerComponent={
