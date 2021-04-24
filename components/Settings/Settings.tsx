@@ -10,7 +10,7 @@ const Settings: React.FC<any> = ({navigation}) => {
         swipeRight: null
     });
     return(
-        <View>
+        <View {...panResponder}>
             
         </View>
     );

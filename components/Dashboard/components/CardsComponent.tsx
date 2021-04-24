@@ -26,7 +26,7 @@ const CardsComponent: React.FC<any> = ({voltage, current, production}) => {
                     style={style.spec}>
                         {card.title + '\n'}
                         <Text
-                        style={style.number}>
+                        style={{fontSize: 20}}>
                             {`${card.value} ${card.measure}` || 'N/A'}
                         </Text>
                     </Text>

@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, SafeAreaView, FlatList, useWindowDimensions, StatusBar, ActivityIndicator, PanResponder } from 'react-native';
+import { View, Text, SafeAreaView, FlatList, useWindowDimensions, StatusBar, ActivityIndicator, Pressable } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import style from './style';
 
 import { dashboardAction } from '../../redux/actions/dashboard';
 import {reportAction} from '../../redux/actions/reports';
-import { dashboardProductionData, reportsData, dashboardVoltage, dashboardCurrent, dashboardProduction, isDashboardLoading, isReportsLoading } from '../../redux/selectors/index';
+import { dashboardProductionData, reportsData, isDashboardLoading, isReportsLoading, dashboardData } from '../../redux/selectors/index';
 
 import ReportComponent from './components/ReportComponent';
 import RealChart from './components/RealChart';
+import ModalData from './components/ModalData';
 import CardsComponent from './components/CardsComponent';
 import Colors from '../../constants/Colors';
 import Swipe from '../../constants/Swipe';
 
 const Dashboard: React.FC<{navigation:any}> = ({navigation}) => {
+    const [modalVisible, setModalVisible] = useState(false);
     const window = useWindowDimensions();
     // Gestures
     const panResponder = Swipe({
@@ -30,12 +32,21 @@ const Dashboard: React.FC<{navigation:any}> = ({navigation}) => {
     };
     // API Data
     const dispatch = useDispatch();
-    const productionData: Array<any> = useSelector(state => dashboardProductionData(state)) || [];
     const reports = useSelector(state => reportsData(state)) || [];
-    const voltage = useSelector(state => dashboardVoltage(state)); 
-    const current = useSelector(state => dashboardCurrent(state));
-    const production = useSelector(state => dashboardProduction(state)); 
-    const isLoading = useSelector(state => isDashboardLoading(state) && isReportsLoading(state))
+    const data = useSelector(state => dashboardData(state)) || {
+                aparentPower: null, 
+                activePower: null,
+                frequency: null,
+                quadrant: null,
+                production: null,
+                voltage: null,
+                current: null
+            };
+    const { production,
+            voltage,
+            current } = data;
+    const productionData: Array<any> = useSelector(state => dashboardProductionData(state)) || [];
+    const isLoading = useSelector(state => isDashboardLoading(state) && isReportsLoading(state));
     // Dispatcher Actions
     useEffect(() => {
         dispatch(dashboardAction({data: true}));
@@ -43,13 +54,19 @@ const Dashboard: React.FC<{navigation:any}> = ({navigation}) => {
     }, []);
 
     if(isLoading)
-        return (<View
+        return (
+            <View
                 style={style.container}>
-                    <ActivityIndicator size="large" color={Colors.primary}/>
-                </View>);
+                <ActivityIndicator size="large" color={Colors.primary}/>
+            </View>
+        );
     else
         return(
             <View {...panResponder.panHandlers}>
+                <ModalData 
+                visible={modalVisible}
+                data={data}
+                onPress={()=>{setModalVisible(false)}}/>
                 <View 
                 onLayout={(event) => {findHeightReports(event.nativeEvent.layout)}}>
                     <RealChart 
@@ -59,12 +76,13 @@ const Dashboard: React.FC<{navigation:any}> = ({navigation}) => {
                     voltage={voltage}
                     current={current}
                     production={production}/>
-                    <View>
+                    <Pressable
+                    onPress={() => setModalVisible(true)}>
                         <Text
-                        style={style.reportsTitle}>
-                            {'Reportes historicos'}
+                        style={style.button}>
+                            Mostrar más
                         </Text>
-                    </View>
+                    </Pressable>
                 </View>
                 <SafeAreaView style={{height: heightReports}}>
                     <FlatList
