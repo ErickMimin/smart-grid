@@ -5,15 +5,15 @@ import style from '../style';
 const CardsComponent: React.FC<any> = ({voltage, current, production}) => {
     const cards = [{
         title: 'Voltaje',
-        measure: 'V',
+        measure: 'Volts',
         value: voltage
     },{
         title: 'Corriente',
-        measure: 'A',
+        measure: 'Ampers',
         value: current
     },{
         title: 'Producción',
-        measure: 'KWh',
+        measure: 'kVAh',
         value: production
     }];
     return(
@@ -27,7 +27,7 @@ const CardsComponent: React.FC<any> = ({voltage, current, production}) => {
                         {card.title + '\n'}
                         <Text
                         style={{fontSize: 20}}>
-                            {`${card.value} ${card.measure}` || 'N/A'}
+                            {`${card.value}\n${card.measure}` || 'N/A'}
                         </Text>
                     </Text>
                 </View>

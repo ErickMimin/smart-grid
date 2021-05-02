@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
+import { apiCall } from '../api/index';
 import {call, put, takeLatest} from 'redux-saga/effects';
 import { DASHBOARD_START, DASHBOARD_ERROR, DASHBOARD_COMPLETE } from '../../constants/actionTypes';
-import { apiCall } from '../api/index';
 
 export function* dashboardSaga({payload}: any){
     try{

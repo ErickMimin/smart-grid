@@ -28,7 +28,8 @@ export default StyleSheet.create({
     },
     data:{
         flexDirection: 'row',
-        justifyContent: 'space-around'
+        justifyContent: 'space-around',
+        alignItems: 'stretch'
     },
     spec:{
         backgroundColor: Colors.green,

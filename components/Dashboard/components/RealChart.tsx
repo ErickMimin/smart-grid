@@ -26,6 +26,7 @@ const RealChart: React.FC<any> = ({data = [], candleWidth}: {data: Array<any>, c
             }else
             auxArray.push(item);
         });
+        //candleArray.filter((item: Array<any>) => item.length === candleWidth)
         // Get Data for the unit candle
         return candleArray.map((candle, index, array) => {
             const open = index > 0 ? array[index - 1][candleWidth - 1].value : candle[0].value;
@@ -70,8 +71,7 @@ const RealChart: React.FC<any> = ({data = [], candleWidth}: {data: Array<any>, c
             domainPadding={{ x: 10 }}
             scale={{ x: "time" }}
             containerComponent={
-                <VictoryZoomContainer/>
-            }>
+                <VictoryZoomContainer />}>
                 <VictoryAxis tickFormat={(t) => `${t.getDate()}/${t.getMonth()}`}/>
                 <VictoryAxis dependentAxis/>
                 <VictoryCandlestick

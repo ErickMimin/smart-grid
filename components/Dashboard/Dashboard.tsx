@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, SafeAreaView, FlatList, useWindowDimensions, StatusBar, ActivityIndicator, Pressable } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import style from './style';
 
 import { dashboardAction } from '../../redux/actions/dashboard';
 import {reportAction} from '../../redux/actions/reports';
@@ -12,18 +11,11 @@ import RealChart from './components/RealChart';
 import ModalData from './components/ModalData';
 import CardsComponent from './components/CardsComponent';
 import Colors from '../../constants/Colors';
-import Swipe from '../../constants/Swipe';
+import style from './style';
 
 const Dashboard: React.FC<{navigation:any}> = ({navigation}) => {
     const [modalVisible, setModalVisible] = useState(false);
     const window = useWindowDimensions();
-    // Gestures
-    const panResponder = Swipe({
-        swipeLeft: null,
-        swipeRight: () => {
-            navigation.navigate('Charts');
-        }
-    });
     // Style constants
     const [heightReports, setHeightReports] = useState(0);
     const findHeightReports = (layout: any) => {
@@ -62,7 +54,7 @@ const Dashboard: React.FC<{navigation:any}> = ({navigation}) => {
         );
     else
         return(
-            <View {...panResponder.panHandlers}>
+            <View>
                 <ModalData 
                 visible={modalVisible}
                 data={data}
@@ -87,9 +79,8 @@ const Dashboard: React.FC<{navigation:any}> = ({navigation}) => {
                 <SafeAreaView style={{height: heightReports}}>
                     <FlatList
                         data={reports}
-                        renderItem={ReportComponent}
-                        keyExtractor={(item) => item.reportID}
-                    />
+                        renderItem={({item})=><ReportComponent item={item} dispatch={dispatch} />}
+                        keyExtractor={(item, index) => `${item.reportId + index}`}/>
                 </SafeAreaView>
             </View>
         );
