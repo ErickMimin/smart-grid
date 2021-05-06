@@ -25,7 +25,7 @@ const Notifications: React.FC<any> = ({navigation}) => {
       <SafeAreaView style={styles.container}>
           <SectionList
               sections={DATA}
-              renderItem={({ item }) => <Notification item={item}/>}
+              renderItem={({ item }) => <Notification item={item} dispatch={dispatch}/>}
               keyExtractor={(item, index) => `${item.id + index}`}
               renderSectionHeader={({ section: { title } }) => (
                 <Text style={{padding: 10}} >{title}</Text>

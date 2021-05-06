@@ -12,10 +12,19 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Provider } from 'react-redux';
 import { useFonts, Roboto_400Regular } from '@expo-google-fonts/roboto';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Alert } from 'react-native';
+
+const setToken = async (header: any) =>{
+  try {
+      await AsyncStorage.setItem('header', header)
+    } catch(error) {
+      Alert.alert("No se pudo guardar el token");
+    }
+}
 
 
 const store = configureStore();
-
 const Stack = createStackNavigator();
 
 export default function App() {

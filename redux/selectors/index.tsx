@@ -14,3 +14,6 @@ export const dashboardDataProduction = (state: any) => get(state, 'dashboard.das
 
 export const isNotificationsLoading = (state: any) => get(state, 'notifications.isLoading');
 export const notificationsData = (state: any) => get(state, 'notifications.notifications');
+
+export const loginHeader = (state: any) => get(state, 'login.header');
+export const loginResponse = (state: any) => get(state, 'login.isLogin');

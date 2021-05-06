@@ -30,7 +30,7 @@ const ReportComponent: React.FC<any> = ({item, dispatch}) =>{
     const deleteReport = (id: any) => {
         AlertDelete({
             title: `Borrar reporte ${id}`,
-            content: "¿Está seguro que quiere eliminar este reporte?",
+            content: "¿Está seguro que quiere eliminar este reporte?\nEsta operación es irreversible.",
             onSucces: () => deleteReportRequest(id)
         });
     };
@@ -61,7 +61,7 @@ const ReportComponent: React.FC<any> = ({item, dispatch}) =>{
                     size={20}
                     icon={faTrash}
                     color={Colors.red}
-                    style={{marginLeft: 20}}/>
+                    style={{marginLeft: 20, marginRight: 10}}/>
                 </TouchableHighlight>
                 
             </View>
