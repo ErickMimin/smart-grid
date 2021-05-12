@@ -1,46 +1,27 @@
 import React, { useState } from 'react';
-import { View, Image, TextInput, StyleSheet, Dimensions, Text, Button, Alert } from 'react-native';
-import Colors from '../../constants/Colors';
-
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { View, Image, TextInput, Button, Alert } from 'react-native';
 import { apiCall } from '../../redux/api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import Colors from '../../constants/Colors';
+import style from './style';
 
 const setHeader = async (header: any) =>{
     try {
-        await AsyncStorage.setItem('header', header)
+        await AsyncStorage.setItem('@header', header)
       } catch(error) {
         Alert.alert("No se pudo guardar el header");
       }
 }
 
-/**
- * Estilos para el componente Login
- */
-const width = Dimensions.get('window').width / 2;
-const style = StyleSheet.create({
-    container:{
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    logo:{
-        width: width,
-        height: width,
-        marginBottom: 50
-    },
-    tinyLogo:{
-        width: width * .7,
-        height: (width * .44) * .7,
-    },
-    input:{
-        padding: 5,
-        borderColor: '#101010',
-        borderWidth: 1,
-        borderRadius: 10,
-        width: width
+const getToken = async () => {
+    try {
+        return await AsyncStorage.getItem('@token');
+    } catch(error) {
+        Alert.alert("No se pudo leer el token");
     }
-  });
+    return null;
+}
 
 /**
  * Logica para el componente Login
@@ -55,7 +36,7 @@ const Login: React.FC<{navigation:any}> = ({navigation}) => {
     const handlerCode = async () => {
         if(password !== ''){
             try{
-                const response = await apiCall(`login`, {password, token: null}, null, 'POST');
+                const response = await apiCall(`login`, {password, token: await getToken()}, null, 'POST');
                 if(response.data.accept){
                     setHeader(password);
                     goToHome();
@@ -76,24 +57,21 @@ const Login: React.FC<{navigation:any}> = ({navigation}) => {
             <Image
             source={require('../../assets/img/bigLogo.png')}
             style={style.logo}/>
-            <Text>
-                Introduce el código
-            </Text>
             <TextInput
-            placeholder='Código'
+            placeholder='Código de acceso'
             style={style.input}
             value={password}
             textContentType={'password'}
             onChangeText={setPassword}/>
-            <View style={{marginTop: 20}}>
+            <View style={style.button}>
                 <Button 
-                    title='Entrar' 
-                    onPress={()=>goToHome()}
+                    title='Acceder' 
+                    onPress={()=>handlerCode()}
                     color={Colors.primary}/>
             </View>
             {/*<Image
             source={require('../assets/img/tinyLogo.png')}
-            style={style.tinyLogo}/> */}
+            style={style.tinyLogo}/>*/}
         </View>
     );
 };

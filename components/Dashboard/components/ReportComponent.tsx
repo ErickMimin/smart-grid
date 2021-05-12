@@ -1,5 +1,5 @@
 import React from "react";
-import { faFileDownload, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faFileAlt, faTrash, faFilePdf } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { View, Text, TouchableHighlight, Alert } from "react-native";
 import { formatDate } from "../../../constants/formatDate";
@@ -14,7 +14,11 @@ import AlertDelete from "../../../constants/AlertDelete";
 const ReportComponent: React.FC<any> = ({item, dispatch}) =>{
 
     const downloadFile = async (id: any) => {
-        FileDownloader(`reports/${id}`, `reports${id}-${new Date().getTime()}.pdf`)
+        FileDownloader(`reports/${id}`, `reportsPDF${id}-${new Date().getTime()}.pdf`)
+    };
+
+    const downloadFileJson = async (id: any) => {
+        FileDownloader(`reports/json/${id}`, `reportJSON${id}-${new Date().getTime()}.json`)
     };
     
     const deleteReportRequest = async (id: any) => {
@@ -50,8 +54,18 @@ const ReportComponent: React.FC<any> = ({item, dispatch}) =>{
                 onPress={() => downloadFile(item.reportId)}>
                     <FontAwesomeIcon
                     size={20}
-                    icon={faFileDownload}
+                    icon={faFilePdf}
                     color={Colors.black}/>
+                </TouchableHighlight>
+                <TouchableHighlight
+                activeOpacity={0.6}
+                underlayColor= {Colors.white}
+                onPress={() => downloadFileJson(item.reportId)}>
+                    <FontAwesomeIcon
+                    size={20}
+                    icon={faFileAlt}
+                    color={Colors.black}
+                    style={{marginLeft: 20}}/>
                 </TouchableHighlight>
                 <TouchableHighlight
                 activeOpacity={0.6}

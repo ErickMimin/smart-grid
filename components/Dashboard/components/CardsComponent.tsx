@@ -6,15 +6,15 @@ const CardsComponent: React.FC<any> = ({voltage, current, production}) => {
     const cards = [{
         title: 'Voltaje',
         measure: 'Volts',
-        value: voltage || 0
+        value: voltage
     },{
         title: 'Corriente',
         measure: 'Ampers',
-        value: current || 0
+        value: current
     },{
         title: 'Producción',
         measure: 'kVAh',
-        value: production || 0
+        value: production
     }];
     return(
         <View

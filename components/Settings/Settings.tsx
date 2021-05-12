@@ -31,8 +31,7 @@ const Settings: React.FC<any> = ({navigation}) => {
             activeSections={activeSections}
             renderContent={renderContent}
             renderHeader={renderHeader}
-            onChange={(sections)=>{setActiveSections(sections)}}
-        />
+            onChange={(sections)=>{setActiveSections(sections)}}/>
         </View>
     );
 };

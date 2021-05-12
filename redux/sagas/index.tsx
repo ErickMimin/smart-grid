@@ -3,12 +3,16 @@ import dashboard from './dashboard';
 import reports from './reports';
 import notifications from './notifications';
 import login from './login';
+import chartDay from './chartsDay';
+import chartMonth from './chartsMonth';
 
 export default function* rootSaga(){
     yield all([
         dashboard(),
         reports(),
         notifications(),
-        login()
+        login(),
+        chartDay(),
+        chartMonth()
     ]);
 }

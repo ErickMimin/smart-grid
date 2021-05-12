@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import { dashboardAction } from '../../redux/actions/dashboard';
 import {reportAction} from '../../redux/actions/reports';
-import { dashboardProductionData, reportsData, isDashboardLoading, isReportsLoading, dashboardData } from '../../redux/selectors/index';
+import { dashboardProductionData, reportsData, isDashboardLoading, isReportsLoading, dashboardData, dashboardDataCurrent, dashboardDataVoltage, dashboardDataProduction } from '../../redux/selectors/index';
 
 import ReportComponent from './components/ReportComponent';
 import RealChart from './components/RealChart';
@@ -34,15 +34,18 @@ const Dashboard: React.FC<{navigation:any}> = ({navigation}) => {
                 voltage: null,
                 current: null
             };
-    const { production,
-            voltage,
-            current } = data;
+    const production = useSelector(state => dashboardDataProduction(state)) || 0; 
+    const voltage = useSelector(state => dashboardDataVoltage(state)) || 0;
+    const current = useSelector(state => dashboardDataCurrent(state)) || 0;
     const productionData: Array<any> = useSelector(state => dashboardProductionData(state)) || [];
     const isLoading = useSelector(state => isDashboardLoading(state) && isReportsLoading(state));
     // Dispatcher Actions
     useEffect(() => {
         dispatch(dashboardAction({data: true}));
         dispatch(reportAction({}));
+        setInterval(() => {
+            dispatch(dashboardAction({}));
+        }, 60000);
     }, []);
 
     if(isLoading)
