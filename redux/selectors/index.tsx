@@ -23,3 +23,6 @@ export const chartDayData = (state: any) => get(state, 'chartDay.chartDay');
 
 export const isChartMonthLoading = (state: any) => get(state, 'chartMonth.isLoading');
 export const chartMonthData = (state: any) => get(state, 'chartMonth.chartMonth');
+
+export const isSettingssLoading = (state: any) => get(state, 'settings.isLoading');
+export const settingsData = (state: any) => get(state, 'settings.settings');

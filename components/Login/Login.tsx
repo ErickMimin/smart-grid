@@ -39,6 +39,7 @@ const Login: React.FC<{navigation:any}> = ({navigation}) => {
                 const response = await apiCall(`login`, {password, token: await getToken()}, null, 'POST');
                 if(response.data.accept){
                     setHeader(password);
+                    setPassword('');
                     goToHome();
                 }else{
                     setPassword('');

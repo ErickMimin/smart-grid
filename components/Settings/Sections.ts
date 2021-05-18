@@ -10,4 +10,9 @@ export default [{
 }, {
     title: 'Contacto',
     content: 'Puedes contactarnos a través del siguiente medio o por nuestras redes sociales.'
+},{
+    title: 'Ajustes',
+    content: 'Horarios donde no se toman muestras'
+},{
+    title: 'Cerrar sesión'
 }]

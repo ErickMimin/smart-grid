@@ -16,6 +16,11 @@ export default StyleSheet.create({
         shadowRadius: 4,
         elevation: 5
     },
+    switchContainer: {
+        flexDirection: 'row',
+        marginTop: 10,
+        justifyContent: 'center'
+    },
     button: {
         textAlign: 'center',
         color: Colors.primary,

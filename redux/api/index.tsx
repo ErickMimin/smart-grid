@@ -13,7 +13,7 @@ const getHeader = async () => {
     return null;
 }
 // const BASE_URL = 'http://192.168.0.35:5000/smart-gr/us-central1/widgets/';
-const BASE_URL = 'http://06ad0d09cb3a.ngrok.io/';
+const BASE_URL = 'http://smartgrid.ngrok.io/';
 const DOWNLOAD_PATH = 'file:///storage/emulated/0/Download/';
 
 
@@ -24,7 +24,7 @@ export const apiCall = async (url: any, data: any, headers: any, method: any) =>
     return axios({
         method,
         url: BASE_URL + url,
-        data, 
+        data,
         headers: headers == null ? reqId : {reqId, ...headers}
     })
 };

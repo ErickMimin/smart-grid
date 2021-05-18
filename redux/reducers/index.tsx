@@ -5,6 +5,7 @@ import notifications from './notifications';
 import login from './login';
 import chartDay from './chartDay';
 import chartMonth from './chartMonth';
+import settings from './settings';
 
 const rootReducer = combineReducers({
     dashboard,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
     notifications,
     login,
     chartDay,
-    chartMonth
+    chartMonth,
+    settings
 });
 
 export default rootReducer;

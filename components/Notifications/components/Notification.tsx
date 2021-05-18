@@ -15,8 +15,8 @@ const Notification: React.FC<{item: any, dispatch: any}> = ({item, dispatch}) =>
   const {type, description, date} = item;
   const deleteNotificationRequest = async (id: any) => {
     try{
-        await apiCall(`reports/${id}`, null, null, 'DELETE');
-        Alert.alert('Reporte eliminado correctamente');
+        await apiCall(`notifications/${id}`, null, null, 'DELETE');
+        Alert.alert('Notificación eliminada correctamente');
         dispatch(notificationsAction({}));
     }catch(error){
         Alert.alert('Error: ' + error);
@@ -25,7 +25,7 @@ const Notification: React.FC<{item: any, dispatch: any}> = ({item, dispatch}) =>
   
   const deleteNotification = (id: any) => {
     AlertDelete({
-        title: `Borrar notificación ${id}`,
+        title: `Borrar notificación`,
         content: "¿Está seguro que quiere eliminar esta notificación?\nEsta operación es irreversible.",
         onSucces: () => deleteNotificationRequest(id)
     });

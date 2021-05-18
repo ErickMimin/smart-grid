@@ -54,7 +54,7 @@ const downloadFileDay = async (init: Date, final: Date) => {
 
 const Charts: React.FC<any> = ({navigation}) => {
     const [type, setType] = useState(false); // false => Day, true => Month
-    const [arrayData, setArrayData] = useState<any>({days: {init: DayArray(DAYS), final: []}, months: {init: MonthArray(MONTHS), final: []}});
+    const [arrayData, setArrayData] = useState<any>({days: {init: DayArray(DAYS), final: DayArray(DAYS - 1)}, months: {init: MonthArray(MONTHS), final: MonthArray(MONTHS - 1)}});
     const [data, setData] = useState({days: {init: 0, final: 0}, months: {init: 0, final: 0}});
     const toggleSwitch = () => setType(previousState => !previousState);
     const dispatch = useDispatch();
@@ -63,13 +63,13 @@ const Charts: React.FC<any> = ({navigation}) => {
 
     useEffect(()=>{
         // Days
-        if(!type && arrayData.days.final.length > 0){
+        if(!type && arrayData.days.final.length > 0 && data.days.init >= 0){
             dispatch(chartsDayAction({
                 init: arrayData.days.init[data.days.init],
                 final: arrayData.days.final[data.days.final]
             }));
         }
-        if(type && arrayData.months.final.length > 0){
+        if(type && arrayData.months.final.length > 0 && data.months.init >= 0){
             dispatch(chartsMonthAction({
                 init: arrayData.months.init[data.months.init],
                 final: arrayData.months.final[data.months.final]
@@ -78,8 +78,15 @@ const Charts: React.FC<any> = ({navigation}) => {
     }, [type, data, arrayData]);
 
     useEffect(()=>{
-        console.log(dayData, monthData)
-    }, [dayData, monthData])
+        dispatch(chartsDayAction({
+            init: arrayData.days.init[data.days.init],
+            final: arrayData.days.final[data.days.final]
+        }));
+        dispatch(chartsMonthAction({
+            init: arrayData.months.init[data.months.init],
+            final: arrayData.months.final[data.months.final]
+        }));
+    }, [])
 
     return(
         <SafeAreaView style={{marginHorizontal: 10}}>
@@ -106,7 +113,7 @@ const Charts: React.FC<any> = ({navigation}) => {
                         </Picker>
                         <Picker
                             selectedValue={data.days.final}
-                            onValueChange={(itemValue, itemIndex) => {
+                            onValueChange={(itemValue) => {
                                 setData(lastData => ({...lastData, days: {...lastData.days, final: itemValue}}));
                             }}>
                             {arrayData.days.final.map((date: any, index: any) => (
@@ -151,7 +158,7 @@ const Charts: React.FC<any> = ({navigation}) => {
                         </Picker>
                         <Picker
                             selectedValue={data.months.final}
-                            onValueChange={(itemValue, itemIndex) => {
+                            onValueChange={(itemValue) => {
                                 setData(lastData => ({...lastData, months: {...lastData.months, final: itemValue}}));
                             }}>
                             {arrayData.months.final.map((date: any, index: any) => (

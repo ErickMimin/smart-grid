@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, SafeAreaView, FlatList, useWindowDimensions, StatusBar, ActivityIndicator, Pressable } from 'react-native';
+import React, { useEffect, useState, useRef } from 'react';
+import { View, Text, SafeAreaView, FlatList, useWindowDimensions, StatusBar, ActivityIndicator, Pressable, Switch } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 
 import { dashboardAction } from '../../redux/actions/dashboard';
@@ -13,8 +13,12 @@ import CardsComponent from './components/CardsComponent';
 import Colors from '../../constants/Colors';
 import style from './style';
 
+const REFRESH = 60000;
+
 const Dashboard: React.FC<{navigation:any}> = ({navigation}) => {
     const [modalVisible, setModalVisible] = useState(false);
+    const [type, setType] = useState<'candle' | 'lineal'>('candle');
+    const interval = useRef<any>(null);
     const window = useWindowDimensions();
     // Style constants
     const [heightReports, setHeightReports] = useState(0);
@@ -39,14 +43,28 @@ const Dashboard: React.FC<{navigation:any}> = ({navigation}) => {
     const current = useSelector(state => dashboardDataCurrent(state)) || 0;
     const productionData: Array<any> = useSelector(state => dashboardProductionData(state)) || [];
     const isLoading = useSelector(state => isDashboardLoading(state) && isReportsLoading(state));
+
+    const toggleType = () => setType((state) => {
+        if(state === 'candle') return 'lineal';
+        return 'candle';
+    });
+
     // Dispatcher Actions
     useEffect(() => {
-        dispatch(dashboardAction({data: true}));
+        dispatch(dashboardAction({data: type}));
         dispatch(reportAction({}));
-        setInterval(() => {
-            dispatch(dashboardAction({}));
-        }, 60000);
+        interval.current = setInterval(() => {
+            dispatch(dashboardAction({data: type}));
+        }, REFRESH);
     }, []);
+
+    useEffect(() => {
+        dispatch(dashboardAction({data: type}));
+        clearInterval(interval.current);
+        interval.current = setInterval(() => {
+            dispatch(dashboardAction({data: type}));
+        }, REFRESH);
+    }, [type]);
 
     if(isLoading)
         return (
@@ -64,9 +82,19 @@ const Dashboard: React.FC<{navigation:any}> = ({navigation}) => {
                 onPress={()=>{setModalVisible(false)}}/>
                 <View 
                 onLayout={(event) => {findHeightReports(event.nativeEvent.layout)}}>
+                    <View style={style.switchContainer}>
+                        <Text style={{marginRight: 10}}>Velas</Text>
+                        <Switch
+                            trackColor={{ false: Colors.grey, true: Colors.grey }}
+                            thumbColor={Colors.primary}
+                            ios_backgroundColor={Colors.white}
+                            onValueChange={toggleType}
+                            value={type !== 'candle'}/>
+                        <Text style={{marginLeft: 10}}>Lineal</Text>
+                    </View>
                     <RealChart 
-                    data={productionData}
-                    candleWidth={60}/>
+                    data={productionData.map((elem) => {return {...elem, x: new Date(elem.x)}})}
+                    type={type}/>
                     <CardsComponent
                     voltage={voltage}
                     current={current}

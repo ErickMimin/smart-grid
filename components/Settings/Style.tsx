@@ -12,5 +12,16 @@ export default StyleSheet.create({
        fontSize: 18,
        fontWeight: '400',
        color: Colors.primary
+   },
+   picker:{
+       width: 100,
+       borderColor: Colors.grey,
+       borderWidth: 2,
+   },
+   pickerContainer: {
+       flex: 1,
+       flexDirection: 'row',
+       flexWrap: 'wrap',
+       alignItems: 'center'
    }
 });

@@ -12,6 +12,12 @@ export default StyleSheet.create({
         borderWidth: 1,
         margin: 5
     },
+    header:{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginRight: 20
+    },
     content:{
         flex: 1,
         marginHorizontal: 20,
@@ -24,4 +30,9 @@ export default StyleSheet.create({
         fontSize: 16,
         fontWeight: '500'
     },
+    loaderContainer: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center"
+    }
   });

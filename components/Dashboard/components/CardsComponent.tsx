@@ -9,7 +9,7 @@ const CardsComponent: React.FC<any> = ({voltage, current, production}) => {
         value: voltage
     },{
         title: 'Corriente',
-        measure: 'Ampers',
+        measure: 'mA',
         value: current
     },{
         title: 'Producción',
@@ -27,7 +27,7 @@ const CardsComponent: React.FC<any> = ({voltage, current, production}) => {
                         {card.title + '\n'}
                         <Text
                         style={{fontSize: 20}}>
-                            {`${card.value.toFixed(2)}\n${card.measure}`}
+                            {`${card.value.toFixed(3)}\n${card.measure}`}
                         </Text>
                     </Text>
                 </View>

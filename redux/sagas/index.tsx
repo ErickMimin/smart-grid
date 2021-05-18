@@ -5,6 +5,7 @@ import notifications from './notifications';
 import login from './login';
 import chartDay from './chartsDay';
 import chartMonth from './chartsMonth';
+import settings from './settings'
 
 export default function* rootSaga(){
     yield all([
@@ -13,6 +14,7 @@ export default function* rootSaga(){
         notifications(),
         login(),
         chartDay(),
-        chartMonth()
+        chartMonth(),
+        settings(),
     ]);
 }
