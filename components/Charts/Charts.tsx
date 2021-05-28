@@ -128,7 +128,7 @@ const Charts: React.FC<any> = ({navigation}) => {
                                 duration: 1000
                               }}>
                             <VictoryAxis 
-                                tickFormat={(t: Date) => t.getDate()}
+                                tickFormat={(t: Date) => `${t.getMonth() < 10 ? '0' + (t.getMonth() + 1) : (t.getMonth() + 1)}/${t.getDate()}`}
                                 label="Tiempo"
                                 style={{tickLabels: {padding: 5}, axisLabel: {padding: 30}}}/>
                             <VictoryAxis 

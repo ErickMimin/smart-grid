@@ -20,13 +20,13 @@ const ModalData: React.FC<{visible: any, data: any, onPress: any}> = ({visible, 
             <View style={style.container}>
                 <View style={style.modalContainer}>
                     <Text>
-                        {`Voltaje: ${voltage} \n`}
-                        {`Corriente: ${current} \n`}
-                        {`Producción: ${production} \n`}
-                        {`Frecuencia: ${frequency} \n`}
-                        {`Potencia Aparente: ${aparentPower} \n`}
-                        {`Potencia Activa: ${activePower} \n`}
-                        {`Factor de portencia: ${powerFactor} \n`}
+                        {`Voltaje: ${voltage} V\n`}
+                        {`Corriente: ${current} A\n`}
+                        {`Producción: ${production} kVAh\n`}
+                        {`Frecuencia: ${frequency} Hz\n`}
+                        {`Potencia Aparente: ${aparentPower} VA\n`}
+                        {`Potencia Activa: ${activePower} W\n`}
+                        {`Factor de potencia: ${powerFactor}\n`}
                         {`Cuadrante: ${quadrant} \n`}
                     </Text>
                     <Button 

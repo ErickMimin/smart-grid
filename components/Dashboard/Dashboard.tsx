@@ -24,7 +24,7 @@ const Dashboard: React.FC<{navigation:any}> = ({navigation}) => {
     const [heightReports, setHeightReports] = useState(0);
     const findHeightReports = (layout: any) => {
         const {height} = layout;
-        setHeightReports(window.height - height - (StatusBar.currentHeight || 0));
+        setHeightReports(window.height - height);
     };
     // API Data
     const dispatch = useDispatch();
